@@ -1,0 +1,28 @@
+
+<%- include('includes/head') %>
+<head>
+<link href="/css/signin.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card card-container">
+            <h4 style="text-align: center;">Bem vindo de volta!</h4>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card card-container">
+            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+            <br>
+            <form class="form-login" action="login.php" method="POST">
+                <input name="email" type="email" id="inputEmail" class="form-control" placeholder="E-mail" required
+                    autofocus>
+                <input name="senha" type="password" id="inputSenha" class="form-control" placeholder="Senha" required>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" name="entrar">Entrar</button>
+            </form>
+            Não tem uma conta? <a href="./cadastro" class="cadastrar">
+                Cadastre-se
+            </a>
+        </div>
+    </div>
+</body>

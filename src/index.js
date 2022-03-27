@@ -24,6 +24,9 @@ app.use(express.static('public'));
 const TransacoesRouter = require('./routes/transacoes-routes');
 app.use('/transacoes', TransacoesRouter);
 
+const UserRouter = require('./routes/user-routes');
+app.use('/user', UserRouter);
+
 app.use('*', (req, res, next) => {
     console.log(`Request recebido para ${req.baseUrl} as ${new Date()}`);
     next();
