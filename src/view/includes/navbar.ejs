@@ -8,10 +8,19 @@
         </div>
         <div class="w3-col s8 w3-bar">
             <span>Bem vindo, <strong>Usuário</strong></span><br>
-            <a href="#" class="w3-bar-item w3-button">Visualizar perfil</a>
+            <button href="#" onclick="abrirMeuPerfil()" class="open-button w3-bar-item w3-button" id="abrirPopup" >Visualizar perfil</button>
+            <button href="#" onclick="fecharMeuPerfil()" class="open-button w3-bar-item w3-button" id="fecharPopup" style="visibility: hidden; position: absolute;">Fechar perfil</button>
             <a href="/user/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i>Sair</a>
         </div>
     </div>
+
+    <div class="form-popup" id="meuPerfil">
+            <b>Nome:</b><br>
+            <p>Nome do Usuário</p>
+            <b>Email:</b>
+            <p>Email do Usuário</p>
+        </div>
+
     <hr>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
@@ -24,3 +33,21 @@
 
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
     title="close side menu" id="myOverlay"></div>
+
+    <script>
+        function abrirMeuPerfil() {
+            document.getElementById("meuPerfil").style.display = "block";
+            document.getElementById("abrirPopup").style.visibility = "hidden";
+            document.getElementById("abrirPopup").style.position = "relative";
+            document.getElementById("fecharPopup").style.visibility = "visible";
+            document.getElementById("fecharPopup").style.position = "absolute";
+        }
+
+        function fecharMeuPerfil() {
+            document.getElementById("meuPerfil").style.display = "none";
+            document.getElementById("fecharPopup").style.visibility = "hidden";
+            document.getElementById("fecharPopup").style.position = "relative";
+            document.getElementById("abrirPopup").style.visibility = "visible";
+            document.getElementById("abrirPopup").style.position = "absolute";
+        }
+    </script>
