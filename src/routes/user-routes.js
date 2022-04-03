@@ -7,6 +7,8 @@ const usersController = new UsersController();
 
 routes.post('/cadastrar', usersController.cadastrar);
 
+routes.get('/', usersController.login);
+
 routes.post('/login', usersController.login);
 
 routes.get('/login', usersController.mostraLogin);

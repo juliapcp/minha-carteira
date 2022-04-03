@@ -11,7 +11,8 @@ app.use(express.urlencoded({
 
 app.use(express.json());
 
-const session = require('express-session')
+const session = require('express-session');
+
 app.use(session({
     secret: 'oeRf3fJ4eG3flxv30XvUcuOcDwoLyJtboDql',
     resave: false,
@@ -21,24 +22,26 @@ app.use(session({
 
 app.use(express.static('public'));
 
+app.get('*', (req, res, next)=> {
+    if (req.url != '/user/login' && req.url != '/user/cadastro'){
+        if (!req.session.user) {
+            res.redirect('/user/login');
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+})
+
 const TransacoesRouter = require('./routes/transacoes-routes');
 app.use('/transacoes', TransacoesRouter);
 
 const UserRouter = require('./routes/user-routes');
 app.use('/user', UserRouter);
 
-app.use('*', (req, res, next) => {
-    next();
-})
-
 app.get('/', (req, res) => {
     res.redirect('/transacoes');
 });
-
-app.use('*', (req, res) => {
-    return res.status(404).send(`
-        <h1>Desculpe, não encontramos essa página.</h1>
-    `);
-})
 
 app.listen(3000, () => console.log('Server iniciado na porta 3000'));

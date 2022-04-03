@@ -13,15 +13,14 @@
     <div class="card card-container">
         <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
         <br>
-        <form class="form-login" action="/cadastro" method="POST"">
-                    <input name=" nome" type="text" id="inputNome" class="form-control" placeholder="Nome" autofocus>
+        <form class="form-login" action="cadastro" method="POST"">
+                    <input name="nome" type="text" id="inputNome" class="form-control" placeholder="Nome" autofocus>
             <input name="email" type="email" id="inputEmail" class="form-control" placeholder="E-mail" required
                 autocomplete="username">
             <input name="senha" type="password" id="inputSenha" class="form-control" placeholder="Senha" required
                 autocomplete="current-password">
             <br>
-            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit"
-                name="cadastrar">Cadastrar-se</button>
+            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Cadastrar-se</button>
         </form>
         Já tem uma conta? <a href="./login" class="cadastrar">
             Entrar

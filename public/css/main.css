@@ -5,24 +5,19 @@
 body {
     font-size: 16px;
 }
-
-.form-popup {
-  display: none;
-  right: 15px;
-  border: 3px solid #f1f1f1;
-  z-index: 9;
+#titulo {
+    --color: rgb(0, 197, 85);
+    --position: center bottom;
+    --width: 50px;
+    --height: 5px;
+    background: linear-gradient(var(--color), var(--color)) var(--position) / var(--width) var(--height) no-repeat;
+    padding-bottom: 10px;
+    font: bold 2.5rem;
+    text-align:center;
 }
-
-.form-container {
-  max-width: 300px;
-  padding: 10px;
-  background-color: white;
-}
-
-.form-container .cancel {
-  background-color: red;
-}
-
-.form-container .btn:hover, .open-button:hover {
-  opacity: 1;
+td {
+    padding-top: 8px;
+    padding-bottom: 15px;
+    padding-left: 32px;
+    padding-right: 30px;
 }
