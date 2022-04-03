@@ -14,21 +14,26 @@ class UsersController {
     async login(req, res) {
         const { email, senha } = req.body;
         const userEncontrado = users.find(u => u.email == email);
-        if (!userEncontrado) return res.send('User não encontrado');
-
-        if (userEncontrado.senha == senha) {
+        const erro = {}; erro.titulo = "Tente novamente";
+        erro.mensagem = "Email ou senha inválidos.";
+        if (!userEncontrado){
+            return res.render('login', { erro: erro });
+        } else if (userEncontrado.senha == senha) {
             req.session.user = userEncontrado;
             return res.redirect('/');
         } else {
-            return res.redirect('/login');
+            return res.render('login', {erro: erro});
         }
     }
     async mostraCadastro(req, res) {
         return res.render('cadastro', {});
     }
     async cadastro(req, res) {
-    
+        const user = req.body;
+        users.push(user); 
+        req.session.user = user;
+        return res.redirect('/');
     }
 }
 
-module.exports = UsersController;
+module.exports = UsersController;    

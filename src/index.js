@@ -28,7 +28,6 @@ const UserRouter = require('./routes/user-routes');
 app.use('/user', UserRouter);
 
 app.use('*', (req, res, next) => {
-    console.log(`Request recebido para ${req.baseUrl} as ${new Date()}`);
     next();
 })
 

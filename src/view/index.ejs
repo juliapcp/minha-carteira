@@ -4,7 +4,7 @@
 <%- include('includes/head') %>
 
 
-    <%- include('includes/navbar') %>    
+    <%- include('includes/navbar', {user: user}) %>    
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     
         <!-- Header -->
@@ -15,9 +15,9 @@
         <div class="w3-row-padding w3-margin-bottom">
             <div class="w3-third">
                 <div class="w3-container w3-teal w3-padding-16">
-                    <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+                    <div class="w3-left"><i class="fa fa-line-chart w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3>--</h3>
+                        <h3><%=resumoTransacoes.receita%></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Receita</h4>
@@ -25,9 +25,9 @@
             </div>
             <div class="w3-third">
                 <div class="w3-container w3-red w3-padding-16">
-                    <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+                    <div class="w3-left"><i class="fa fa-level-down w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3>--</h3>
+                        <h3><%= resumoTransacoes.despesa %></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Despesa</h4>
@@ -37,7 +37,7 @@
                 <div class="w3-container w3-blue w3-padding-16">
                     <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3>--</h3>
+                        <h3><%=resumoTransacoes.saldo%></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Saldo</h4>
@@ -49,18 +49,49 @@
     
     
         <div class="w3-container">
-            <h5>Transações</h5>
+            <h5><b>Transações</b></h5>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-                <tr>
-                    <td><i class="fa fa-plus"></i></td>
-                    <td>Salário</td>
-                    <td>128,1</td>
-                </tr>
-                <tr>
-                    <td><i class="fa fa-minus"></i></td>
-                    <td>Compra de material</td>
-                    <td>239,2</td>
-                </tr>
+                <% if(transacoes.length > 0) { %>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Data</th>
+                            <th>Descrição</th>
+                            <th>Valor</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <% transacoes.forEach(transacao=> { %>
+                        <tr>
+                            <td>
+                                <i class="fa fa-<% transcao.tipo == 'R' ? 'plus w3-text-green' : 'minus w3-text-red'%>"></i>
+                            </td>
+                            <td>
+                                <%= transacao.data %>
+                            </td>
+                            <td>
+                                <%= transacao.descricao %>
+                            </td>
+                            <td>
+                                <%= transacao.valor %>
+                            </td>
+                            <td> 
+                                <a href="/transacoes/<%= transacao.id %>">
+                                    <i class="fa fa-eye" title="Visualizar"></i>
+                                </a> 
+                                <a href="/transacoes/editar/<%= transacao.id %>">
+                                    <i class="fa fa-pencil" title="Editar"></i>
+                                </a>
+                                <a href="/transacoes/deletar/<%= transacao.id %>">
+                                    <i class="fa fa-close" title="Deletar"></i>
+                                </a>
+
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } else { %>
+                    <p>Ops, você ainda não registrou nenhuma transação, <a class="w3-text-green" href="transacoes/cadastrar">registre</a> para começar a controlar suas finanças</p>
+                <% } %>
             </table><br>
         </div>
         <hr>

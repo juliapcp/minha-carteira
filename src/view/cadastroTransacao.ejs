@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('includes/head') %>
+
+
+    <%- include('includes/navbar', {user: user}) %>
+        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+            <div class="w3-container">
+                <h3 id="titulo">Nova transação</h3>
+                <form action="/cadastro" method="post">
+                    <table>
+                        <tr>
+                            <td><label for="titulo">Título: </label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="text" class=" w3-white w3-border w3-round-large" size="105" name="titulo"></td>
+                        </tr>
+                        <tr>
+                            <td><label for="tipo">Tipo: </label></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <select name="tipo" class="w3-select w3-border w3-round-large ">
+                                    <option value="Receita">Receita</option>
+                                    <option value="Despesa">Despesa</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label for="data">Data: </label></td>
+                            <td><label for="valor">Valor (R$): </label></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="date" class="w3-white w3-border w3-round-large" name="data">
+                            </td>
+                            <td>
+                                <input type="number" class="w3-white w3-border w3-round-large" name="valor">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><button type="submit" class="w3-button w3-green">Cadastrar</button></td>
+                            <td><button href="/" class="w3-button w3-red">Cancelar</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <hr>
+
+
+            <%- include('includes/footer') %>
+
+        </div>
+        </body>
+
+</html>
