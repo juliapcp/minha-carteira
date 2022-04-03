@@ -8,6 +8,10 @@ routes.get('/cadastrar', transacoesController.mostraCadastro);
 
 routes.get('/deletar/:id', transacoesController.deletar);
 
+routes.get('/editar/:id', transacoesController.mostraEdicao);
+
+routes.post('/editar/:id', transacoesController.editar);
+
 routes.get('/', transacoesController.listar);
 
 routes.get('/:id', transacoesController.detalhar);

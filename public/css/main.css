@@ -5,8 +5,18 @@
 body {
     font-size: 16px;
 }
-#titulo {
-    --color: rgb(0, 197, 85);
+#titulo, #valorReceita {
+    --color: #029913;
+    --position: center bottom;
+    --width: 50px;
+    --height: 5px;
+    background: linear-gradient(var(--color), var(--color)) var(--position) / var(--width) var(--height) no-repeat;
+    padding-bottom: 10px;
+    font: bold 2.5rem;
+    text-align:center;
+}
+#valorDespesa {
+    --color: #dd0404;
     --position: center bottom;
     --width: 50px;
     --height: 5px;

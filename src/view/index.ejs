@@ -6,10 +6,12 @@
 
     <%- include('includes/navbar', {user: user}) %>    
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-    
+        <% if(typeof msg !="undefined" ){ %>
+            <%- include('includes/modal', {msg:msg}) %>
+        <%}%>
         <!-- Header -->
         <header class="w3-container" style="padding-top:22px">
-            <h5><b><i class="fa fa-dashboard"></i> Dashboard</b></h5>
+            <h4 id="titulo">Dashboard</h4>
         </header>
     
         <div class="w3-row-padding w3-margin-bottom">
@@ -17,7 +19,7 @@
                 <div class="w3-container w3-teal w3-padding-16">
                     <div class="w3-left"><i class="fa fa-line-chart w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3><%=resumoTransacoes.receita%></h3>
+                        <h3><%=resumoTransacoes.receita != "--" ?new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resumoTransacoes.receita) : resumoTransacoes.receita %></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Receita</h4>
@@ -27,7 +29,7 @@
                 <div class="w3-container w3-red w3-padding-16">
                     <div class="w3-left"><i class="fa fa-level-down w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3><%= resumoTransacoes.despesa %></h3>
+                        <h3><%= resumoTransacoes.despesa != "--" ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resumoTransacoes.despesa) : resumoTransacoes.despesa %></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Despesa</h4>
@@ -37,7 +39,7 @@
                 <div class="w3-container w3-blue w3-padding-16">
                     <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
                     <div class="w3-right">
-                        <h3><%=resumoTransacoes.saldo%></h3>
+                        <h3><%= resumoTransacoes.saldo != "--" ? new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(resumoTransacoes.saldo) : resumoTransacoes.saldo%></h3>
                     </div>
                     <div class="w3-clear"></div>
                     <h4>Saldo</h4>
@@ -49,12 +51,14 @@
     
     
         <div class="w3-container">
-            <h5><b>Transações</b></h5>
+            <h4 id="titulo">Transações</h4>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
                 <% if(transacoes.length > 0) { %>
                     <thead>
                         <tr>
-                            <th></th>
+                            <th><a class="w3-text-green" href="/transacoes/cadastrar">
+                                <i class="fa fa-money" title="Nova transação"></i>
+                            </a></th>
                             <th>Data</th>
                             <th>Descrição</th>
                             <th>Valor</th>
@@ -64,28 +68,31 @@
                     <% transacoes.forEach(transacao=> { %>
                         <tr>
                             <td>
-                                <i class="fa fa-<% transcao.tipo == 'R' ? 'plus w3-text-green' : 'minus w3-text-red'%>"></i>
+                                <i class="fa fa-<%= transacao.tipo == 'R' ? 'plus w3-text-green' : 'minus w3-text-red'%>"></i>
                             </td>
                             <td>
-                                <%= transacao.data %>
+                                <%= new Date(transacao.data+' 00:00:00').toLocaleDateString('pt-BR') %>
                             </td>
                             <td>
-                                <%= transacao.descricao %>
+                                <%= transacao.titulo %>
                             </td>
                             <td>
-                                <%= transacao.valor %>
+                                <%= new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(transacao.valor) %>
                             </td>
                             <td> 
-                                <a href="/transacoes/<%= transacao.id %>">
+                                <a class="w3-text-green" href="/transacoes/<%= transacao.id %>">
                                     <i class="fa fa-eye" title="Visualizar"></i>
                                 </a> 
-                                <a href="/transacoes/editar/<%= transacao.id %>">
+                            </td>
+                            <td>
+                                <a class="w3-text-green" href="/transacoes/editar/<%= transacao.id %>">
                                     <i class="fa fa-pencil" title="Editar"></i>
                                 </a>
-                                <a href="/transacoes/deletar/<%= transacao.id %>">
+                            </td>
+                            <td>
+                                <a class="w3-text-green" href="/transacoes/deletar/<%= transacao.id %>">
                                     <i class="fa fa-close" title="Deletar"></i>
                                 </a>
-
                             </td>
                         </tr>
                     <% }) %>

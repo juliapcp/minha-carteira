@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<%- include('includes/head') %>
+
+
+    <%- include('includes/navbar', {user: user}) %>
+        <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+            <div class="w3-container">
+                <tr>
+                    <td><button class="w3-button" onclick="location.href = '/'"><i class="fa fa-arrow-left"></i></button></td>
+                    <td><h4 id="titulo">
+                        Visualizar transação
+                    </h4></td>
+                </tr>
+                <img src="/images/<%=transacao.tipo == 'D' ? 'despesa' : 'receita'%>.svg" width="10%" height="10%" style="display: block; margin-left: auto; margin-right: auto; ">
+                <h5 style="text-align: center;">
+                    <% let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }; %>
+                    <%= new Date(transacao.data+' 00:00:00').toLocaleDateString('pt-BR', options) %>
+                </h5>
+                <h3 style="text-align: center;"><%=transacao.titulo%></h3>
+                <h1 id="valor<%=transacao.tipo == 'D' ? 'Despesa' : 'Receita'%>" style="text-align: center;"><b><%= new Intl.NumberFormat('pt-BR', { style: 'currency' , currency: 'BRL' }).format(transacao.valor) %></b></h1>
+                <h5 style="text-align: center;">
+                    <%=transacao.observacao%>
+                </h5>
+            </div>
+            
+            <hr>
+
+
+            <%- include('includes/footer') %>
+
+        </div>
+        </body>
+
+</html>

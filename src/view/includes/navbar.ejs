@@ -15,18 +15,18 @@
             <a href="/user/login" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i>Sair</a>
         </div>
     </div>
-    <div class="form-popup" id="meuPerfil">
-        <b>Nome:</b><br>
-        <p>Nome do Usuário</p>
-        <b>Email:</b>
-        <p>Email do Usuário</p>
+    <div class="form-popup" id="meuPerfil" style="display: none; border-left: 12px solid #029913;">
+        <b style=" margin-left: 20px;">Nome:</b><br>
+        <p style=" margin-left: 20px;"><%=user.nome%></p>
+        <b style=" margin-left: 20px;">Email:</b>
+        <p style=" margin-left: 20px;"><%=user.email%></p>
     </div>
     <hr>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
             onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Fechar Menu</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Dashboard</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding"><i class="fa fa-money fa-fw"></i>  Registrar transação</a>
+        <a href="/" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Dashboard</a>
+        <a href="/transacoes/cadastrar" class="w3-bar-item w3-button w3-padding"><i class="fa fa-money fa-fw"></i>  Registrar transação</a>
     </div>
 </nav>
 

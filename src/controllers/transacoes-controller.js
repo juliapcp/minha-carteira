@@ -1,61 +1,90 @@
 let transacoes = [];
-const { get } = require('express/lib/response');
 const { nanoid } = require('nanoid');
 class TransacoesController {
 
     async mostraCadastro(req, res) {
-        return res.render('cadastroTransacao', {user: req.session.user});
+        return res.render('cadastroTransacao', {user: req.session.user, transacao: {}});
+    }
+
+    async cadastrar(req, res) {
+        let user = req.session.user;
+        transacoes.push({
+            id: nanoid(8),
+            emailUser: user.email,
+            ...req.body
+        });
+        const msg = {}; msg.titulo = "Sucesso"; msg.mensagem = "Transação cadastrada com sucesso!";
+        return res.render('index', { transacoes: getTransacoesUser(user), user: user, resumoTransacoes: getResumoTransacoes(user), msg:msg});
     }
 
     async listar(req, res) {
-        return res.render('index', { transacoes: getTransacoesUser(), user: req.session.user, resumoTransacoes: getResumoTransacoes() });
+        let user = req.session.user;
+        return res.render('index', { transacoes: getTransacoesUser(user), user: user, resumoTransacoes: getResumoTransacoes(user) });
     }
 
     async deletar(req, res) {
         const { id } = req.params;
-
-        const transacaoId =getTransacoesUser().findIndex(t => t.id == id);
+        let user = req.session.user;
+        const transacaoId = getTransacoesUser(req.session.user).findIndex(t => t.id == id);
         transacoes.splice(transacaoId, 1);
-
-        return res.redirect('/transacoes')
+        const msg = {}; msg.titulo = "Sucesso"; msg.mensagem = "Transação excluída com sucesso!";
+        return res.render('index', { transacoes: getTransacoesUser(user), user: user, resumoTransacoes: getResumoTransacoes(user), msg: msg });
     }
 
     async detalhar(req, res) {
         const { id } = req.params;
-
-        const transacaoFiltrada = getTransacoesUser().filter(t => t.id == id);
+        let user = req.session.user;
+        const transacaoFiltrada = getTransacoesUser(user).filter(t => t.id == id);
         if (transacaoFiltrada.length > 0) {
             
-            return res.render('detalhar', { transacao: transacaoFiltrada[0] });
+            return res.render('detalheTransacao', { transacao: transacaoFiltrada[0], user: user});
         } else {
             return res.send('Transação não encontrada');
         }
     }
 
-    async cadastrar(req, res) {
+    async mostraEdicao(req, res){
+        const { id } = req.params;
+        const transacaoFiltrada = getTransacoesUser(req.session.user).filter(t => t.id == id);
+        if (transacaoFiltrada.length > 0) {
+            return res.render('cadastroTransacao', { user: req.session.user, transacao: transacaoFiltrada[0] });
+        } else {
+            return res.send('Transação não encontrada');
+        }
+    }
+    async editar(req, res){
+        const { id } = req.params;
+        const transacaoId = getTransacoesUser(req.session.user).findIndex(t => t.id == id);
+        const msg = {}; msg.titulo = "Sucesso"; msg.mensagem = "Transação alterada com sucesso!";
+        let user = req.session.user;
+
+        transacoes.splice(transacaoId, 1);
         transacoes.push({
             id: nanoid(8),
-            emailUser: req.session.user,
+            emailUser: user.email,
             ...req.body
         });
-        return res.redirect('/transacoes');
+
+        return res.render('index', { transacoes: getTransacoesUser(user), user: user, resumoTransacoes: getResumoTransacoes(user), msg: msg });
     }
 
+    
+
 }
-function getTransacoesUser() {
-    return transacoes.filter(t => t.emailUser == req.session.user);
+function getTransacoesUser(user) {
+    return transacoes.filter(t => t.emailUser == user.email);
 }
 
-function getResumoTransacoes(){
+function getResumoTransacoes(user){
     const resumoTransacoes = { receita: '--', despesa: '--', saldo: '--' };
-    if(getTransacoesUser().length>0){
+    if (getTransacoesUser(user).length>0){
         let receita = 0;
         let despesa = 0;
-        getTransacoesUser().forEach(transacao=>{
-            if(transacao.tipo = 'R'){
-                receita += transacao.valor;
+        getTransacoesUser(user).forEach(transacao=>{
+            if(transacao.tipo == 'R'){
+                receita += parseFloat(transacao.valor);
             } else {
-                despesa += transacao.valor;
+                despesa += parseFloat(transacao.valor);
             }
         });
         resumoTransacoes.receita = receita;
