@@ -29,9 +29,17 @@ class UsersController {
     }
     async cadastro(req, res) {
         const user = req.body;
-        users.push(user); 
-        req.session.user = user;
-        return res.redirect('/');
+        const userEncontrado = users.find(u => u.email == user.email);
+        if(userEncontrado){
+            const msg = {}; msg.titulo = "E-mail em uso";
+            msg.mensagem = "Este e-mail já está em uso em um cadastro na Minha Carteira. Tente fazer login.";
+            return res.render('login', { msg: msg });
+        } else {
+            users.push(user);
+            req.session.user = user;
+            return res.redirect('/');
+        }
+
     }
 }
 
