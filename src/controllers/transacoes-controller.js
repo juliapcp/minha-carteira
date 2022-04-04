@@ -19,7 +19,17 @@ class TransacoesController {
 
     async listar(req, res) {
         let user = req.session.user;
-        return res.render('index', { transacoes: getTransacoesUser(user), user: user, resumoTransacoes: getResumoTransacoes(user) });
+        const query = req.query;
+        const campo = Object.keys(query)[0];
+        const valor = query[campo];
+        const retorno ={};
+        let transacoesFiltradas = getTransacoesUser(user);
+        if(typeof(valor) != "undefined"){
+            retorno.campo = campo;
+            retorno.valor = valor;
+            transacoesFiltradas = transacoesFiltradas.filter(transacao => transacao[campo].toUpperCase().includes(valor));
+        }
+        return res.render('index', { transacoes: transacoesFiltradas, user: user, resumoTransacoes: getResumoTransacoes(user), query: retorno });
     }
 
     async deletar(req, res) {

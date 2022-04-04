@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 
 <%- include('includes/head') %>
-
+<% query=typeof query !=='object' ? {} : query %>
 
     <%- include('includes/navbar', {user: user}) %>    
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
@@ -53,7 +53,13 @@
         <div class="w3-container">
             <h4 id="titulo">Transações</h4>
             <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
-                <% if(transacoes.length > 0) { %>
+                <% if(transacoes.length > 0 || query.campo != null) { %>
+                    <select class="w3-border w3-round-large w3-button" id="campo" name="campo">
+                        <option value="titulo" <%=query.campo == 'titulo' ? " selected " : ""%>>Título</option>
+                        <option value="data" <%=query.campo == 'data' ? " selected " : ""%>>Data</option>
+                    </select>
+                    <input class="w3-button w3-white w3-border w3-round-large" type="<%=query.campo == 'data' ? "date" : "text"%>" id="valor" name="valor" value="<%=query.valor%>" size="90" pattern="[a-zs]+$">
+                    <button style="border: none" onclick="value = document.getElementById('valor').value.trim().replace(/ +/g, '+');query = value != '' ? document.getElementById('campo').value+'='+value : '';location.href ='/transacoes'+((query != '') ? '?' : '')+query;">&#x1F50E</button>
                     <thead>
                         <tr>
                             <th><a class="w3-text-green" href="/transacoes/cadastrar">
@@ -107,6 +113,22 @@
     <%- include('includes/footer') %>
 
 </div>
+        <script>
+            let campo = document.getElementById('campo');
+            let valor = document.querySelector("#valor");
+            campo.addEventListener("change", function () {
+                console.log("entrou");
+                if(campo.value == 'data') {
+                    valor.type = 'date'
+                }else {
+                    valor.type="text"
+                }
+            });
+            valor.addEventListener("input", function () {
+                valor.value = valor.value.toUpperCase();
+            });
+            
+        </script>
 </body>
 
 </html>
