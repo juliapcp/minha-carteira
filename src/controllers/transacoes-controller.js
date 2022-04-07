@@ -82,6 +82,9 @@ class TransacoesController {
 
 }
 function getTransacoesUser(user) {
+    transacoes = transacoes.sort(function(a,b){
+        return new Date(a.data) - new Date(b.data);
+    });
     return transacoes.filter(t => t.emailUser == user.email);
 }
 
