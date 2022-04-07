@@ -44,4 +44,5 @@ app.get('/', (req, res) => {
     res.redirect('/transacoes');
 });
 
-app.listen(3000, () => console.log('Server iniciado na porta 3000'));
+const port = process.env.PORT; 
+app.listen(port, () => console.log('Server iniciado na porta '+port));
