@@ -70,7 +70,7 @@ class TransacoesController {
 
         transacoes.splice(transacaoId, 1);
         transacoes.push({
-            id: nanoid(8),
+            id: id,
             emailUser: user.email,
             ...req.body
         });
