@@ -15,7 +15,7 @@
                             <td><label for="titulo">Título: </label></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><input value="<%=transacao.titulo%>" type="text" class=" w3-white w3-border w3-round-large" size="105" required name="titulo"></td>
+                            <td colspan="2"><input value="<%=transacao.titulo%>" type="text" class=" w3-white w3-border w3-round-large" size="105" style="width:100%" required name="titulo"></td>
                         </tr>
                         <tr>
                             <td><label for="tipo">Tipo: </label></td>
@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <input required value="<%=transacao.data%>" type="date" class="w3-white w3-border w3-round-large" name="data">
+                                <input required value="<%=transacao.data%>" style="width:100%" type="date" class="w3-white w3-border w3-round-large" name="data">
                             </td>
                             <td>
                                 <input required type="number" value="<%=transacao.valor%>" step=0.01 class="w3-white w3-border w3-round-large" name="valor">

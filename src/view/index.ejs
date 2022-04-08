@@ -58,7 +58,7 @@
                         <option value="titulo" <%=query.campo == 'titulo' ? " selected " : ""%>>Título</option>
                         <option value="data" <%=query.campo == 'data' ? " selected " : ""%>>Data</option>
                     </select>
-                    <input class="w3-button w3-white w3-border w3-round-large" type="<%=query.campo == 'data' ? "date" : "text"%>" id="valor" name="valor" value="<%=query.valor%>" size="90" pattern="[a-zs]+$">
+                    <input class="w3-button w3-white w3-border w3-round-large" type="<%=query.campo == 'data' ? "date" : "text"%>" id="valor" name="valor" value="<%=query.valor%>" size="90" style="width:80%" pattern="[a-zs]+$">
                     <button style="border: none" onclick="value = document.getElementById('valor').value.trim().replace(/ +/g, '+');query = value != '' ? document.getElementById('campo').value+'='+value : '';location.href ='/transacoes'+((query != '') ? '?' : '')+query;">&#x1F50E</button>
                     <thead>
                         <tr>
